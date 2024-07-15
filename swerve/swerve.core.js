@@ -323,9 +323,9 @@ class Swerve extends self.swerve.constructor {
         // 
         // TODO: make it possible to hook into this check, so that it's possible
         // to e.g. display a notification when the check fails
-        const controlledClients = await self.clients.matchAll({ type: "all" });
+        const controlledClients = await self.clients.matchAll();
         const allClients = await self.clients.matchAll({
-          type: "all", includeUncontrolled: true
+          includeUncontrolled: true
         });
         const controlledClientIDs = controlledClients.map(client => client.id);
         const allClientIDs = allClients.map(client => client.id);
