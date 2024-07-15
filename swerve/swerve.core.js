@@ -443,7 +443,7 @@ class Swerve extends self.swerve.constructor {
   // was called in a client context. Unlike the standard fetch API, it allows
   // specifying the the value of the destination property of the Request object
   // dispatched with the FetchEvent.
-  async fetch (resource, options) {
+  async fetch(resource, options) {
     const request = new Request(resource, options);
     if (options?.destination) {
       const destination = options.destination;

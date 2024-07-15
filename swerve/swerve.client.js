@@ -27,7 +27,10 @@
       
       const config = await (await fetch("/swerve.config.json")).json();
       if (!config.noReloadOnInstall) {
-        location.reload();
+        // instead of location.reload() we use location.replace(location); this
+        // fixes broken behavior in Chrome, where if you only reload, a
+        // subsequent reload would cause the service worker to lose control
+        location.replace(location); 
       }
     });
 
