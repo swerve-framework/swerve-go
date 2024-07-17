@@ -1,0 +1,12 @@
+{
+  "name": "swerve",
+  "scripts": {
+    "test": "npm run test-client",
+    "test-client": "./node_modules/karma/bin/karma start test/client/karma.conf.js"
+  },
+  "devDependencies": {
+    "karma": "^6.4.3",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-qunit": "^4.2.0"
+  }
+}
