@@ -7,6 +7,7 @@
   "devDependencies": {
     "karma": "^6.4.3",
     "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
     "karma-qunit": "^4.2.0"
   }
 }

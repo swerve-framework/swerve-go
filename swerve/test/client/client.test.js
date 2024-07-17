@@ -11,8 +11,21 @@ QUnit.test('swerve does not set any cookies initially', async assert => {
 });
 
 QUnit.test('swerve.ready() resolves after controllerchange', async assert => {
+  document.currentScript.attributes.push(
+    { name: "foo", value: "abc"},
+    { name: "bar", value: "xyz"});
+  const ready = swerve.ready();
   navigator.serviceWorker.dispatchEvent(new Event('controllerchange'));
-  await swerve.ready();
+  await ready;
   assert.equal(document.cookie, 'swerve.installed=true',
     'the swerve.installed cookie is set');
+  assert.equal(MockCurrentScript.calls.replaceWith.length, 1,
+    "document.currentScript.replaceWith is called exactly once");
+  assert.deepEqual(
+    [...MockCurrentScript.calls.replaceWith[0][0].attributes]
+      .map(attr => {
+        return { name: attr.name, value: attr.value };
+      }),
+    document.currentScript.attributes,
+    "document.currentScript.replaceWith is called with the correct attributes");
 });
