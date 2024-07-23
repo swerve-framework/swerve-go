@@ -1,8 +1,9 @@
 {
   "name": "swerve",
   "scripts": {
-    "test": "npm run test-client",
-    "test-client": "./node_modules/karma/bin/karma start test/client/karma.conf.js"
+    "test": "npm run test-client; npm run test-bootstrap",
+    "test-client": "./node_modules/karma/bin/karma start test/client/karma.conf.js",
+    "test-bootstrap": "./node_modules/karma/bin/karma start test/bootstrap/karma.conf.js"
   },
   "devDependencies": {
     "karma": "^6.4.3",

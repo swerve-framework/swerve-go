@@ -1,2 +1,3 @@
 /swerve/node_modules/
+/swerve/test/bootstrap/coverage/
 /swerve/test/client/coverage/
