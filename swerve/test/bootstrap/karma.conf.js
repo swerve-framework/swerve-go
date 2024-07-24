@@ -16,6 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       '$$ENCRYPTION_KEY$$.mock.js',
+      'crypto.getRandomValues.mock.js',
       'ExtendableEvent.mock.js',
       'FetchEvent.mock.js',
       '../../swerve.bootstrap.js',
