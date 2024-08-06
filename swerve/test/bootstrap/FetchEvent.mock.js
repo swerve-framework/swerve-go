@@ -1,1 +1,0 @@
-class FetchEvent extends ExtendableEvent {}

@@ -12,6 +12,9 @@ import (
 
 const StatusCookieName = "swerve.installed"
 
+//go:generate rm -rf ./swerve
+//go:generate git clone -b main https://github.com/swerve-framework/swerve
+//go:generate find ./swerve -not -regex ^\./swerve\(/swerve\.[^/]*\)?$ -delete
 var (
 	//go:embed swerve/swerve.client.js
 	clientJS []byte
