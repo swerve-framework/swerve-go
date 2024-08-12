@@ -3,7 +3,6 @@ package swerve
 import (
 	"bytes"
 	"crypto/rand"
-	_ "embed"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -11,18 +10,6 @@ import (
 )
 
 const StatusCookieName = "swerve.installed"
-
-//go:generate rm -rf ./swerve
-//go:generate git clone -b main https://github.com/swerve-framework/swerve
-//go:generate find ./swerve -not -regex ^\./swerve\(/swerve\.[^/]*\)?$ -delete
-var (
-	//go:embed swerve/swerve.client.js
-	clientJS []byte
-	//go:embed swerve/swerve.bootstrap.js
-	bootstrapTemplate []byte
-	//go:embed swerve/swerve.core.js
-	coreJS []byte
-)
 
 // Handler adds Swerve handling to h
 func Handler(h http.Handler, options ...Option) http.Handler {
@@ -52,7 +39,7 @@ func HandlerFunc(h http.HandlerFunc, options ...Option) http.Handler {
 
 func handleClient(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/javascript")
-	w.Write(clientJS)
+	w.Write(ClientJavaScript)
 }
 
 func handleBootstrap(w http.ResponseWriter, r *http.Request) {
@@ -70,14 +57,14 @@ func handleBootstrap(w http.ResponseWriter, r *http.Request) {
 	ek := make([]byte, base64.RawStdEncoding.EncodedLen(len(k)))
 	base64.RawURLEncoding.Encode(ek, k)
 	jwk := fmt.Sprintf(`{"alg":"A256GCM","ext":true,"k":"%s","key_ops":["encrypt","decrypt"],"kty":"oct"}`, ek)
-	bootstrap := bytes.Replace(bootstrapTemplate, []byte("$$ENCRYPTION_KEY$$"), []byte(jwk), 1)
+	bootstrap := bytes.Replace(BootstrapJavaScript, []byte("$$ENCRYPTION_KEY$$"), []byte(jwk), 1)
 	w.Header().Set("Content-Type", "text/javascript")
 	w.Write(bootstrap)
 }
 
 func handleCore(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/javascript")
-	w.Write(coreJS)
+	w.Write(CoreJavaScript)
 }
 
 func isInstalled(r *http.Request) bool {
